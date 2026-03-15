@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SupportMailAgent - Email Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1>🤖 SupportMailAgent - Test Email Composer</h1>
+                    <p>Send mock emails to test the AI workflow</p>
+                </div>
+                <a href="/inbox.html" style="color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 6px; font-weight: 600;">
+                    📬 View Inbox →
+                </a>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Left Sidebar: Compose Email Form -->
+            <aside class="sidebar compose-panel">
+                <h2>📧 Compose Mock Email</h2>
+                <form id="emailForm" class="email-form">
+                    <div class="form-group">
+                        <label for="sender">From Email</label>
+                        <input
+                            type="email"
+                            id="sender"
+                            name="sender"
+                            placeholder="customer@example.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            placeholder="Email subject..."
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="body">Message</label>
+                        <textarea
+                            id="body"
+                            name="body"
+                            placeholder="Email body..."
+                            rows="8"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Send Email
+                    </button>
+
+                    <div id="submitStatus" class="status-message"></div>
+                </form>
+
+                <!-- Template Buttons -->
+                <div class="templates-section">
+                    <h3>Quick Templates</h3>
+                    <button class="btn btn-template" data-template="billing">
+                        💳 Billing Issue
+                    </button>
+                    <button class="btn btn-template" data-template="technical">
+                        🔧 Technical Issue
+                    </button>
+                    <button class="btn btn-template" data-template="password">
+                        🔐 Password Reset
+                    </button>
+                    <button class="btn btn-template" data-template="complaint">
+                        ⚠️ Complaint
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Center: Email List -->
+            <main class="email-list-panel">
+                <div class="list-header">
+                    <h2>📬 Inbox</h2>
+                    <span id="emailCount" class="email-count">0 emails</span>
+                </div>
+
+                <div id="emailList" class="email-list">
+                    <div class="empty-state">
+                        <p>No emails yet. Compose one to get started!</p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Sidebar: Email Details -->
+            <aside class="sidebar details-panel">
+                <div id="detailsContent" class="details-content">
+                    <div class="empty-state">
+                        <p>Select an email to view details</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Templates Data -->
+    <script id="emailTemplates" type="application/json">
+    {
+        "billing": {
+            "sender": "john.customer@company.com",
+            "subject": "I was charged twice for my subscription",
+            "body": "Hello,\n\nI noticed that my credit card was charged twice for the same subscription renewal this month. I was charged on March 10th and again on March 12th. This is the first time this has happened.\n\nCould you please look into this and process a refund for the duplicate charge?\n\nThank you,\nJohn Smith"
+        },
+        "technical": {
+            "sender": "sarah.user@email.com",
+            "subject": "App keeps crashing when I open it",
+            "body": "Hi,\n\nI'm having trouble with your app. Every time I try to open it on my phone, it crashes immediately. I've tried restarting my phone but that didn't help.\n\nI'm using an iPhone 12 with iOS 17.3. Is there a known issue?\n\nThanks,\nSarah"
+        },
+        "password": {
+            "sender": "mike.forgot@domain.com",
+            "subject": "Password reset request",
+            "body": "Hi,\n\nI've forgotten my password and need to reset it. I don't have access to the email address I originally used to register, so I might need help.\n\nCan you guide me through the process?\n\nThank you"
+        },
+        "complaint": {
+            "sender": "angry.customer@mail.com",
+            "subject": "Extremely disappointed with your service",
+            "body": "I'm writing to express my frustration with your service. I've been a customer for 2 years and this month has been a nightmare:\n\n1. I was charged twice without explanation\n2. The app keeps crashing\n3. My support tickets have gone unanswered for a week\n\nI'm considering switching to a competitor. This needs to be resolved immediately!\n\nUrgent response needed."
+        }
+    }
+    </script>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

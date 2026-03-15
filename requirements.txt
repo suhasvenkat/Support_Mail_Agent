@@ -1,0 +1,14 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+langgraph==0.0.46
+langchain==0.1.9
+langchain-openai==0.0.7
+langchain-community==0.0.26
+pydantic==2.5.2
+pydantic-settings==2.1.0
+email-validator==2.3.0
+chromadb==0.4.21
+faiss-cpu==1.7.4
+numpy==1.24.3
+python-dotenv==1.0.0
+httpx==0.25.1
