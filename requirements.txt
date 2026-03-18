@@ -12,3 +12,5 @@ faiss-cpu==1.7.4
 numpy==1.24.3
 python-dotenv==1.0.0
 httpx==0.25.1
+streamlit==1.28.1
+requests==2.31.0
