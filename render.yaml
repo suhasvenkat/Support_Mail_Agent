@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: support-mail-api
+    runtime: python
+    buildCommand: bash build.sh
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.18
+      - key: ANTHROPIC_API_KEY
+        scope: build
+      - key: ENVIRONMENT
+        value: production

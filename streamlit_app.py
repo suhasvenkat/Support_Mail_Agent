@@ -17,7 +17,8 @@ st.set_page_config(
 )
 
 # API configuration
-API_BASE_URL = st.secrets.get("API_BASE_URL", "http://localhost:8000")
+# Use production URL if configured, otherwise fall back to localhost for local dev
+API_BASE_URL = st.secrets.get("API_BASE_URL", "https://support-mail-api.onrender.com")
 API_ENDPOINT = f"{API_BASE_URL}/emails/process"
 
 # Custom CSS
@@ -64,14 +65,19 @@ st.markdown("AI-powered email classification, response generation, and escalatio
 # Sidebar
 with st.sidebar:
     st.header("⚙️ Settings")
-    api_url = st.text_input(
-        "API Base URL",
-        value=API_BASE_URL,
-        help="URL where FastAPI server is running"
-    )
-    if api_url != API_BASE_URL:
-        API_BASE_URL = api_url
-        API_ENDPOINT = f"{API_BASE_URL}/emails/process"
+
+    # Only show API URL setting in development mode
+    if "localhost" in API_BASE_URL or st.secrets.get("SHOW_API_URL_SETTING", False):
+        api_url = st.text_input(
+            "API Base URL",
+            value=API_BASE_URL,
+            help="URL where FastAPI server is running"
+        )
+        if api_url != API_BASE_URL:
+            API_BASE_URL = api_url
+            API_ENDPOINT = f"{API_BASE_URL}/emails/process"
+    else:
+        st.info(f"🚀 Connected to production API")
 
     st.markdown("---")
     st.markdown("**How it works:**")
