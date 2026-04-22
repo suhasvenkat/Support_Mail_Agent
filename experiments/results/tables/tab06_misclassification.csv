@@ -1,0 +1,6 @@
+True Intent,Predicted Intent,Keyword (count),BERT (count),GPT-4 (count),Proposed (count)
+Billing,Refund,1,1,2,1
+Billing,General,1,9,10,3
+Refund,Billing,1,2,1,2
+Technical,General,1,6,8,5
+Account,General,1,4,2,3

@@ -1,0 +1,5 @@
+Node,Input State Vars,Processing,Output State Vars,Transition
+Classifier,"email_body, subject",LLM zero-shot + keyword fallback,"intent, confidence",Always → Retriever
+KB Retriever,"email_body, intent",FAISS/ChromaDB semantic search,"kb_docs, retrieval_score",Always → Responder
+Responder,"email_body, intent, kb_docs",LLM generation with RAG context,response_draft,Always → Escalator
+Escalator,"response_draft, confidence",Learned threshold model,"escalated (bool), routing",Conditional: Auto-Reply or Escalate

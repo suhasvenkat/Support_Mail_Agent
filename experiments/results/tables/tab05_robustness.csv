@@ -1,0 +1,5 @@
+System,account,billing,general,refund,shipping,technical
+Keyword Baseline,0.7789,0.6939,0.5278,0.8627,0.7119,0.6261
+Fine-tuned BERT,0.7708,0.6598,0.6542,0.9167,0.74,0.7115
+Vanilla GPT-4,0.8431,0.6818,0.6964,0.9592,0.8462,0.7292
+Proposed (LangGraph-RAG),0.8387,0.76,0.6596,0.92,0.8381,0.7037
