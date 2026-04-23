@@ -1,4 +1,4 @@
-,Precision,Recall,F1,AUC-ROC,Escalation Rate (%),Workload Reduction (%)
-Static τ=0.50,0.0,0.0,0.0,0.514,0.0,100.0
-Optimal Static τ=0.65,0.2586,0.1667,0.2027,0.5569,15.5,84.5
-Learned (Proposed),0.2162,0.0889,0.126,0.5595,9.9,90.1
+Strategy,Precision,Recall,F1,Escalation Rate (%),Workload Reduction (%)
+Static τ=0.50,0.0,0.0,0.0,0.0,100.0
+Static τ=0.65 (optimal),0.0,0.0,0.0,0.3,99.7
+Multi-criteria (Proposed),0.063,0.015,0.024,38.0,62.0

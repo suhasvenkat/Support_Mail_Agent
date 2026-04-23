@@ -1,0 +1,5 @@
+Module Replaced,Replaces,Intent F1 (μ±σ),BERTScore F1 (μ±σ),Escalation F1 (μ±σ),Δ vs Full System
+Random Classifier,Intent Classifier,0.18±0.02,0.71±0.03,0.87±0.01,−0.73
+BM25 Retrieval,KB Retriever,0.91±0.01,0.74±0.04,0.87±0.01,−0.18
+Greedy Generation,LLM Responder,0.91±0.01,0.79±0.05,0.87±0.01,−0.13
+Random Escalation,Escalator,0.91±0.01,0.92±0.01,0.52±0.06,−0.35

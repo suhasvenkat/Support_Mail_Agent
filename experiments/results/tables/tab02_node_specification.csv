@@ -1,5 +1,6 @@
-Node,Input State Vars,Processing,Output State Vars,Transition
-Classifier,"email_body, subject",LLM zero-shot + keyword fallback,"intent, confidence",Always → Retriever
-KB Retriever,"email_body, intent",FAISS/ChromaDB semantic search,"kb_docs, retrieval_score",Always → Responder
-Responder,"email_body, intent, kb_docs",LLM generation with RAG context,response_draft,Always → Escalator
-Escalator,"response_draft, confidence",Learned threshold model,"escalated (bool), routing",Conditional: Auto-Reply or Escalate
+Node,Input,LLM,Output,Latency_ms,Method
+Classifier,"email_body, subject",Mistral-7B T=0.0,"intent, confidence",4200,
+KB Retriever,"email_body, intent",,kb_results (18 chunks),120,FAISS IndexFlatL2 top-5
+Responder,"email_body, intent, kb_results",Mistral-7B T=0.7,draft_response,11800,
+Escalator,"draft_response, confidence",,"final_response, escalated",45,Multi-criteria (conf<0.6 OR urgent)
+Followup,escalated,,followup_scheduled,5,Schedule if escalated=True

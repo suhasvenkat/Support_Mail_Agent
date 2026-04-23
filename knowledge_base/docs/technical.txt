@@ -1,0 +1,12 @@
+TECHNICAL SUPPORT GUIDE
+
+Common technical issues and resolutions:
+
+1. Login failures: Reset password via forgot password link. Clear browser cache.
+2. App crashes: Update to latest version. Reinstall if issue persists.
+3. Slow performance: Clear cache and cookies. Check internet connection speed.
+4. API errors (503/500): Check system status page. Retry after 15 minutes.
+5. Data sync issues: Re-authenticate OAuth token. Force sync from settings.
+6. Feature not working: Check browser compatibility. Disable browser extensions.
+7. Error codes: Document error code and timestamp. Share with support team.
+8. Mobile app issues: Update OS to latest version. Free up device storage.

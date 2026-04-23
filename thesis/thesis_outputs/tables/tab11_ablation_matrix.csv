@@ -1,0 +1,6 @@
+Configuration,Intent F1,BLEU-4,ROUGE-L,BERTScore F1,RAGAS Faithfulness,Escalation F1,Overall Composite F1
+−Confidence Calibration,0.85,0.4,0.54,0.89,0.84,0.71,0.84
+−RAG Retrieval,0.88,0.32,0.46,0.78,0.61,0.84,0.81
+−Multi-Node Routing,0.82,0.38,0.51,0.85,0.8,0.75,0.82
+−LangGraph Orchestration,0.79,0.35,0.48,0.83,0.77,0.68,0.78
+Full Proposed System,0.91,0.43,0.58,0.92,0.87,0.87,0.92

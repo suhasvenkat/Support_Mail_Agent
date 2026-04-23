@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Thesis Annotation Tool — Support Mail Agent</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; }
+  h1 { color: #1F3864; }
+  .email-box { background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 10px 0; }
+  .response-box { background: #e8f4fd; padding: 15px; border-radius: 8px; margin: 10px 0; }
+  .rating-row { display: flex; gap: 20px; align-items: center; margin: 8px 0; }
+  .rating-label { width: 130px; font-weight: bold; }
+  .star-btn { cursor: pointer; font-size: 22px; color: #ccc; border: none; background: none; }
+  .star-btn.active { color: #FFD700; }
+  .nav-btn { background: #1F3864; color: white; border: none; padding: 10px 25px;
+              border-radius: 6px; cursor: pointer; font-size: 16px; margin: 5px; }
+  .save-btn { background: #4CAF50; }
+  .progress { color: #888; font-size: 14px; margin-top: 10px; }
+  #done-msg { display: none; color: green; font-size: 20px; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>📧 Thesis Annotation Tool</h1>
+<p>Rate each AI-generated response on 5 dimensions (1=Poor, 5=Excellent)</p>
+<p><strong>Annotator name:</strong> <input id="annotator" placeholder="Your name" style="padding:5px;"/></p>
+<div class="progress" id="progress">Email 1 of 30</div>
+
+<div id="email-container"></div>
+<div id="done-msg">✅ All done! Click "Download Results" to save your annotations.</div>
+
+<div style="margin-top:20px;">
+  <button class="nav-btn" onclick="prev()">← Previous</button>
+  <button class="nav-btn" onclick="next()">Next →</button>
+  <button class="nav-btn save-btn" onclick="downloadResults()">💾 Download Results (CSV)</button>
+</div>
+
+<script>
+const SAMPLES = [
+  {
+    "id": 0,
+    "email": "It was working last night. This morning it won\u2019t power on. Tried on another computer and it got hung up on device setup.",
+    "response": "Dear Customer,\n\nI'm truly sorry to hear that you're experiencing issues with your device. It should ideally be functioning after the previous night, but not powering on and encountering trouble during setup on another computer is definitely concerning. I have sent a download link for Document 1 within the next two hours, which contains settings that might help resolve this issue.\n\nIn the meantime, if you haven't already, please try following the troubleshooting steps in Document 1 to see if it helps bring your device back online. If the problem persists, don't hesitate to reach out again for further assistance. I appreciate your patience and understanding in this matter.\n\nBest regards,\n[Your Name]\n[Company Name] Customer Support Team",
+    "intent": "general"
+  },
+  {
+    "id": 1,
+    "email": "We just moved over from another carrier we've been with for decades! Waiting on delivery of our Note 8's!!!",
+    "response": "Dear Customer,\n\nThank you for choosing us! We're excited to have you on board. I understand your anticipation for the delivery of your Note 8 devices. The shipping process is now underway and we expect your shipment to arrive soon. You can track your package using the tracking number provided in your shipment confirmation email.\n\nIf your delivery takes longer than anticipated, please don't hesitate to reach out to our support team after 3 business days for assistance. For additional information about delivery, you may find our Shipping and Delivery Guide helpful (Document 1).\n\nWe appreciate your patience and look forward to helping you enjoy your new Note 8 devices soon!\n\nBest regards,\n[Your Name]\n[Your Position]\n[Company Name] Customer Support Team",
+    "intent": "shipping"
+  },
+  {
+    "id": 2,
+    "email": "Well played My car was standing at the same location for 30 minutes. Driver picked the phone once and said I'm coming. Then he switched off the phone . Nice way of collecting revenue at 2 a.m. - throu",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "billing"
+  },
+  {
+    "id": 3,
+    "email": "Train at Bristol Temple Meads has been cancelled!! I\u2019m going to miss my connection train in London. Will you be refunding my cab fare?",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "refund"
+  },
+  {
+    "id": 4,
+    "email": "please think twice before getting paypal credit.i got charged extra fees that i was not aware of.No help out there to resolve it",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "billing"
+  },
+  {
+    "id": 5,
+    "email": "At no time has anyone offered drinks/snacks while waiting.",
+    "response": "Dear Customer,\n\nThank you for reaching out to us. I'm truly sorry to hear about your experience regarding the lack of refreshments during your wait. While our documentation doesn't specifically address this particular matter, we value your comfort highly. We are currently reviewing our customer service practices and will ensure that beverages and snacks are offered moving forward.\n\nIn the meantime, if you have any other concerns or questions, please don't hesitate to let us know. We appreciate your patience and understanding as we strive to improve your experience with us.\n\nBest Regards,\n[Your Name]\nCustomer Support Agent\n[Company Name]",
+    "intent": "general"
+  },
+  {
+    "id": 6,
+    "email": "Steps To Fix Yahoo Mail Error 15 Toll Free 1800-604-4875 Visit us : #FixMailError15 #YahooMail",
+    "response": "Dear Customer,\n\nThank you for reaching out to us regarding the Yahoo Mail Error 15. I'm sorry to hear that you're experiencing this issue. While the provided email does not directly relate to technical support for Yahoo Mail errors, I'd be happy to help guide you towards a solution.\n\nI recommend visiting our Knowledge Base (document 3) for general troubleshooting steps on various issues related to Yahoo Mail. Specifically, you might find the section on \"Common Yahoo Mail Errors and Their Solutions\" particularly helpful.\n\nIf you continue to experience trouble after following those steps, please don't hesitate to reach back out. We're here to help!\n\nBest regards,\n[Your Name]\n[Your Position]\n[Support Email Address]",
+    "intent": "technical"
+  },
+  {
+    "id": 7,
+    "email": "Just ordered an Prime/ exclusive purchase. The future of retail is amazing.",
+    "response": "Dear Customer,\n\nThank you for your purchase! We're thrilled that you find our exclusive offerings exciting. Regarding your inquiry, I'm afraid digital downloads are non-refundable as per our policy (Document 1). However, rest assured, we strive to deliver high-quality products and services that meet your expectations.\n\nIf there are any issues with the delivery or any other concerns, please don't hesitate to reach out again during our business hours (Monday-Friday 9AM-6PM EST) as stated in Document 2. We're here to help!\n\nBest Regards,\n[Your Name]\nCustomer Support Specialist",
+    "intent": "shipping"
+  },
+  {
+    "id": 8,
+    "email": "Your customer service sucks. It's been more then a month now that my return packages haven't been picked up even after calling the customer service more then 10 times. And now my number has been block",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "refund"
+  },
+  {
+    "id": 9,
+    "email": "I was on the website all night and as soon as midnight hit, I refreshed to see my chances. Waited about 7 min and put in my order!",
+    "response": "Dear Customer,\n\nThank you for reaching out and for your patience. I'm sorry to hear about the inconvenience you experienced while placing an order on our website last night. I understand that you refreshed your chances at midnight and proceeded with your order shortly after.\n\nIn case there was a technical issue that may have prevented your order from being processed, please try the following steps:\n\n1. Clear your browser cache and cookies.\n2. Ensure you are using the latest version of our app or website.\n3. If the problem persists, consider resetting your password as a precaution.\n\nIf you still encounter issues, or if this doesn't address your concern, please don't hesitate to get back in touch with us so we can further assist you. We appreciate your understanding and patience during this process.\n\nBest regards,\n[Your Name]\n[Customer Support Representative]",
+    "intent": "shipping"
+  },
+  {
+    "id": 10,
+    "email": "If i can't order these iPhones because of , I am switching. Thank god I'm not under contract. Phone doesn't even work at home. #iPhoneX",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "shipping"
+  },
+  {
+    "id": 11,
+    "email": "hey guys! Apparently i received a 20$ gift card as a gift and i applied it and bought a dlc for nba 2k18 namely \"75000 VC\" but now it isnt working and they told me its a region conflict and i shall as",
+    "response": "Dear Customer,\n\nThank you for reaching out to us regarding your gift card issue with NBA 2K18. I'm sorry to hear that the DLC \"75000 VC\" isn't working as expected due to a potential region conflict. I understand this can be frustrating and I apologize for any inconvenience this may have caused.\n\nI am more than happy to assist you with a refund in this case. To expedite the process, please provide us with your order number and a brief description of the problem you've encountered. Once we have these details, we will initiate the refund promptly.\n\nYou can find more information about our billing procedures in Document 1 for reference. If you have any other questions or concerns, feel free to let me know! I am here to help.\n\nBest regards,\n[Your Name]\nCustomer Support Agent\n[Company Name]",
+    "intent": "billing"
+  },
+  {
+    "id": 12,
+    "email": "Please help!! I am being charged for a promotional free Glazed Krispy Creme offer. Can you refund asap",
+    "response": "Dear Customer,\n\nI'm really sorry to hear about the unexpected charge on your bill regarding the promotional free Glazed Krispy Creme offer. I understand how frustrating this can be.\n\nTo help resolve this issue, I would like to request you to share more details about the transaction so we can investigate it further. Once I have the necessary information, I'll do my best to process a refund as quickly as possible.\n\nIn the meantime, please refer to our General Support Guide (Document 3) for response times and escalation procedures if needed.\n\nThank you for bringing this matter to our attention, and I appreciate your patience while we work on resolving this issue.\n\nBest Regards,\n[Your Name]\nCustomer Support Agent\nOurService.com",
+    "intent": "billing"
+  },
+  {
+    "id": 13,
+    "email": "Is the XB1 version of South Park Stick of Truth only a Pre-order bonus for Fractured but whole, or can I get it after?",
+    "response": "Dear Customer,\n\nThank you for reaching out to us about your query regarding The XB1 version of South Park Stick of Truth and its availability with Fractured but Whole.\n\nI'm happy to inform you that owning the XB1 version of South Park Stick of Truth is not exclusive to a pre-order bonus for Fractured but Whole. You can purchase it separately and play it at any time.\n\nIf you need further assistance or have more questions, please don't hesitate to ask! You can find more information in our documentation, or submit feedback directly through the app if needed. Our support team is available Monday-Friday 9AM-6PM EST, and we aim to respond within 3 business days.\n\nBest Regards,\n[Your Name]\n[Your Position]\nCustomer Support Team, [Company Name]",
+    "intent": "shipping"
+  },
+  {
+    "id": 14,
+    "email": "Email just received- very confusing. Email titled Dorking but says in the message that broken down train at Totton",
+    "response": "Dear Customer,\n\nThank you for reaching out regarding your recent email. I apologize for any confusion caused as it appears there seems to be a mismatch between the title and content of your email. Regarding the broken down train at Totton, we'll look into this matter further to ensure clarity.\n\nMeanwhile, I would like to help with addressing the issue mentioned in the body of your email. To resolve potential technical issues such as API errors or data sync problems, please refer to Document 2 in our Billing Support Guide for guidance on troubleshooting steps and possible solutions.\n\nI appreciate your patience as we work diligently to address any concerns that arise. If you have any questions or require further assistance, please don't hesitate to let us know.\n\nBest regards,\n[Your Name]\nCustomer Support Agent",
+    "intent": "technical"
+  },
+  {
+    "id": 15,
+    "email": "do you deliberately recommend trains to be 25 minutes delayed so you don\u2019t have to refund/compensate people\u2019s journeys?",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "billing"
+  },
+  {
+    "id": 16,
+    "email": "Still not get satisfied explanation from your represrntatives i need my all money back to my bank account i did not want to buy anything from your site your services are poor dont trap me",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "refund"
+  },
+  {
+    "id": 17,
+    "email": "I think my PlayStation is breaking my controller. There\u2019s something wrong with checking profiles.",
+    "response": "Dear Customer,\n\nI'm sorry to hear that you're experiencing issues with your PlayStation controller. It seems like there might be an API error or data sync problem. I recommend checking the system status page and retrying after 15 minutes, as outlined in Document 1. If the issue persists, trying to re-authenticate your OAuth token and forcing a sync from settings could also help.\n\nI understand how frustrating this can be, and I appreciate your patience as we work together to resolve this problem. If you need further assistance or if the issue continues after attempting these steps, please don't hesitate to get back in touch with us.\n\nBest Regards,\n[Your Name]\n[Your Position]\n[Customer Support Team]",
+    "intent": "account"
+  },
+  {
+    "id": 18,
+    "email": "Be careful when you sell on . They offer you no protection when you sell stuff. Told to use \"common sense\" when shipping &amp; insure it",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "shipping"
+  },
+  {
+    "id": 19,
+    "email": "So apparently will just cancel your credit card with no warning if you pay your bill on time and in full for a few months straight.",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "refund"
+  },
+  {
+    "id": 20,
+    "email": "I gave 3 videos hopefully they can help cuz I\u2019m not downloading this up until u fix this",
+    "response": "Dear Customer,\n\nThank you for reaching out and sharing your videos. I understand that you're experiencing an issue and have taken the time to provide us with additional information to help resolve it.\n\nTo address your concern more effectively, I recommend reviewing our documentation on potential solutions. In particular, Document 1 might be relevant as it discusses updates and promotional discounts (with a relevance score of 88.0%).\n\nIf the issue persists, please don't hesitate to reply with more details or contact us again so we can assist you further. We appreciate your patience and cooperation in working towards a swift resolution.\n\nBest regards,\n[Your Name]\n[Your Position]\nCustomer Support Team @ OurService",
+    "intent": "technical"
+  },
+  {
+    "id": 21,
+    "email": "I just reset my password. The website refused to accept it, then I see this. Amazon, what IS going on with my account??",
+    "response": "Dear Customer,\n\nI understand your frustration with experiencing issues after resetting your password. I'm here to help! It seems there might be an unexpected glitch that we need to address promptly.\n\nTo assist you better, let me check the status of your account and work on resolving this issue. In the meantime, please refrain from trying to reset your password again. This action should allow our system to process your recent change more effectively.\n\nI appreciate your patience as we work through this together. You can expect an update from us soon regarding the resolution of your issue.\n\nBest regards,\n[Your Name]\nAmazon Customer Support Team",
+    "intent": "account"
+  },
+  {
+    "id": 22,
+    "email": "Trying out the trial for CBS All Access just to be able to watch the game. No buffering at all.",
+    "response": "Dear Customer,\n\nThank you for reaching out and for giving CBS All Access a try! I'm glad to hear that you've had a smooth experience so far. However, since this is a streaming service rather than a physical product, there shouldn't be any shipping or delivery concerns to worry about.\n\nIf you encounter any technical issues during the trial period or have questions about the service, please don't hesitate to reach out. You can find more information and help in our FAQ section ([Document 2](https://www.example.com/document-2)).\n\nOnce again, thank you for choosing CBS All Access. I hope you enjoy your trial!\n\nBest regards,\n[Your Name]\nCustomer Support Agent",
+    "intent": "account"
+  },
+  {
+    "id": 23,
+    "email": "this is the crap quality of your signal daily for last 2 months, yet no one via phone can imagine there's a problem",
+    "response": "Dear Customer,\n\nI appreciate your patience in reaching out to us regarding the quality of our signal. I'm sorry to hear that you've experienced issues for the past two months and have had difficulty resolving this over the phone.\n\nTo help diagnose the problem, I recommend checking our API errors documentation (Document 2). This guide may provide steps to resolve any potential issues with our service. If the issue persists after following the instructions, please don't hesitate to contact us again so we can further investigate.\n\nOnce more, I apologize for any inconvenience caused and thank you for bringing this matter to our attention. We value your business and are committed to providing a high-quality service experience.\n\nBest regards,\n[Your Name]\n[Company Name] Customer Support",
+    "intent": "technical"
+  },
+  {
+    "id": 24,
+    "email": "Good Morning, just some feedback for flight VS73 15/10/17 absolutely fantastic crew \"JoJo, Collette and Matt first Officer",
+    "response": "Dear Customer,\n\nThank you for taking the time to share your positive feedback about our crew on flight VS73 on 15/10/17. We're delighted to hear that JoJo, Collette, and Matt first officer made your journey a memorable one. Your compliments have been duly noted and shared with the team.\n\nIf you ever need assistance or have any concerns in the future, please don't hesitate to reach out to us. We strive to maintain our high standards for every flight we operate.\n\nWishing you safe travels ahead!\n\nBest Regards,\n[Your Name]\n[Customer Support Team]",
+    "intent": "billing"
+  },
+  {
+    "id": 25,
+    "email": "Hi I have a problem in the iPhone when I worked for his software when I stopped active iphone .. What is the solution please",
+    "response": "Dear Customer,\n\nThank you for reaching out to us regarding your iPhone issue. I'm sorry to hear that you're experiencing trouble with the software after it went inactive.\n\nTo assist you better, let me refer to our technical support guide (Document 3). One common issue mentioned is app crashes, which could be resolved by updating to the latest version or reinstalling the app.\n\nIf this doesn't solve your problem, please ensure that your device is updated to the latest iOS version as well. If the issue persists, we would appreciate it if you could provide more details so we can further investigate and offer a more tailored solution.\n\nThank you for your patience, and I look forward to helping you resolve this issue.\n\nBest regards,\n[Your Name]\n[Your Position]",
+    "intent": "technical"
+  },
+  {
+    "id": 26,
+    "email": "Hi, can you help to recover an old Twitter account?",
+    "response": "Dear Customer,\n\nThank you for reaching out to us. I understand your concern about recovering an old Twitter account. Although our technical support guide doesn't specifically address account recovery, you can start by attempting a password reset via the 'Forgot Password' link on the login page.\n\nIf you encounter any issues or if the account is locked, please contact us directly for further assistance. We're here to help!\n\nRegards,\n[Your Name]\n[Your Position]",
+    "intent": "account"
+  },
+  {
+    "id": 27,
+    "email": "Apparently lets just anyone hack in and use my credits. Specifically, someone with an account under the name of \u201cGary\u201d. And their support team doesn\u2019t really care and won\u2019t give me my money back. Than",
+    "response": "Thank you for your email. Due to the complexity of your request, our team will review it and get back to you within 24 hours.",
+    "intent": "refund"
+  },
+  {
+    "id": 28,
+    "email": "Buggy animation on Soviet Winter Infantry with Holzpistole #Ww2 #cod",
+    "response": "Dear Customer,\n\nThank you for reaching out to us regarding the buggy animation on the Soviet Winter Infantry with Holzpistole in Call of Duty. I'm sorry to hear that you're experiencing this issue.\n\nI have reviewed our knowledge base and found a document that might be relevant to your situation. While it doesn't directly address your specific concern, it does suggest updating the game to the latest version as a possible solution for mobile app issues.\n\nTo help you further, I would recommend checking if your game is up-to-date. If the issue persists, please don't hesitate to get back in touch so we can investigate further.\n\nWe appreciate your patience and understanding as we work together to resolve this.\n\nBest regards,\n[Your Name]\n[Your Position]\nCustomer Support Team",
+    "intent": "technical"
+  },
+  {
+    "id": 29,
+    "email": "I referred a friend and she booked her first trip (over $75) but I don't see my travel credit, can u help ?\ud83e\udd14",
+    "response": "Dear Customer,\n\nThank you for referring your friend and we're thrilled that they've chosen to book their first trip with us! I understand your concern about not receiving the travel credit for your referral.\n\nI'm sorry for any inconvenience this may have caused. To rectify this issue, please allow up to 48 hours for the travel credit to be applied to your account. If it hasn't been credited within that timeframe, please get back to us with your booking reference number so I can assist you further.\n\nIn the meantime, you may find our documentation on referral credits helpful: [Document 1]\n\nWe appreciate your patience and understanding in this matter. We value your business and are committed to ensuring a smooth experience for all our customers.\n\nBest Regards,\n[Your Name]\n[Your Position]\n[Company Name]",
+    "intent": "refund"
+  }
+];
+let current = 0;
+let ratings = {};
+
+const DIMS = ['Fluency','Relevance','Completeness','Tone','Overall'];
+
+function render() {
+  const s = SAMPLES[current];
+  document.getElementById('progress').textContent = `Email ${current+1} of ${SAMPLES.length}`;
+  let r = ratings[current] || {};
+  let html = `
+    <div class="email-box">
+      <strong>Customer Email (${s.intent.toUpperCase()}):</strong><br>${s.email}
+    </div>
+    <div class="response-box">
+      <strong>AI Response:</strong><br>${s.response}
+    </div>
+    <h3>Rate this response:</h3>
+  `;
+  DIMS.forEach(dim => {
+    html += `<div class="rating-row">
+      <span class="rating-label">${dim}</span>`;
+    for(let i=1;i<=5;i++) {
+      const active = (r[dim]||0) >= i ? 'active' : '';
+      html += `<button class="star-btn ${active}"
+        onclick="rate('${dim}',${i})">★</button>`;
+    }
+    html += `<span style="margin-left:10px;color:#888">${r[dim] ? r[dim]+'/5' : 'not rated'}</span>`;
+    html += `</div>`;
+  });
+  document.getElementById('email-container').innerHTML = html;
+  document.getElementById('done-msg').style.display = 'none';
+}
+
+function rate(dim, val) {
+  if (!ratings[current]) ratings[current] = {};
+  ratings[current][dim] = val;
+  render();
+}
+
+function next() {
+  if (current < SAMPLES.length-1) { current++; render(); }
+  else { document.getElementById('done-msg').style.display='block'; }
+}
+
+function prev() {
+  if (current > 0) { current--; render(); }
+}
+
+function downloadResults() {
+  const annotator = document.getElementById('annotator').value || 'Annotator';
+  let csv = 'email_id,intent,Fluency,Relevance,Completeness,Tone,Overall,annotator\n';
+  SAMPLES.forEach((s,i) => {
+    const r = ratings[i] || {};
+    csv += `${s.id},${s.intent},${r.Fluency||''},${r.Relevance||''},${r.Completeness||''},${r.Tone||''},${r.Overall||''},${annotator}\n`;
+  });
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `annotations_${annotator}.csv`; a.click();
+}
+
+render();
+</script>
+</body>
+</html>

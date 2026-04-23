@@ -1,0 +1,13 @@
+\begin{table}
+\caption{Throughput, latency, cost and quality comparison across LLM backends at single-request load.}
+\label{tab:tab09_llm_cost_performance}
+\begin{tabular}{lccccc}
+\toprule
+LLM Backend & Throughput (emails/min) & Mean Latency (ms) & P95 Latency (ms) & Cost per 1k emails (\$) & BERTScore F1 \\
+\midrule
+GPT-4-turbo & 12 & 940 & 1540 & 3.200000 & 0.920000 \\
+GPT-3.5-turbo & 35 & 380 & 680 & 0.420000 & 0.880000 \\
+Mistral-7B-Instruct & 68 & 220 & 410 & 0.090000 & 0.840000 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,12 @@
+BILLING SUPPORT GUIDE
+
+Common billing issues and resolutions:
+
+1. Double charges: Verify transaction IDs. Refund duplicate within 3-5 business days.
+2. Incorrect invoice amount: Review contract terms. Issue corrected invoice within 24 hours.
+3. Payment not reflected: Check bank transfer reference. Update account within 2 business days.
+4. Unexpected charges: Review subscription plan. Remove unauthorized charges immediately.
+5. Refund requests: Process within 5-7 business days to original payment method.
+6. Invoice not received: Resend invoice to registered email within 1 hour.
+7. Billing address update: Update within 24 hours. Effective from next billing cycle.
+8. Promotional discount not applied: Verify promo code. Apply credit to next invoice.

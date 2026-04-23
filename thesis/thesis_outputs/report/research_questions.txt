@@ -1,0 +1,32 @@
+RESEARCH QUESTIONS (RQ1–RQ7)
+=============================
+
+RQ1 — Architecture Effectiveness:
+  How does a formally specified multi-node LangGraph agentic architecture (Classifier →
+  KB Retriever → Responder → Escalator) compare to monolithic LLM-based and rule-based
+  baselines in end-to-end customer support email automation?
+
+RQ2 — RAG Faithfulness & Hallucination:
+  To what extent does RAG reduce hallucination risk in support response generation, and
+  which retrieval configuration (FAISS vs. ChromaDB, chunk size, top-k) maximizes
+  faithfulness and relevance as measured by RAGAS?
+
+RQ3 — Confidence-Aware Escalation:
+  Can a learned confidence-aware escalation mechanism trained on historical email patterns
+  outperform static threshold-based routing in precision, recall, and workload reduction?
+
+RQ4 — Intent Classification Robustness:
+  How robust is LLM-based intent classification within the agentic pipeline when exposed
+  to noisy, ambiguous, or multilingual support emails vs. fine-tuned BERT classifiers?
+
+RQ5 — Response Quality Evaluation:
+  Which combination of automated metrics (BLEU, ROUGE-L, BERTScore, RAGAS) best
+  correlates with human-rated response quality in customer support email generation tasks?
+
+RQ6 — Scalability and Latency Under Load:
+  What are the throughput, latency, and cost trade-offs of the multi-node LangGraph
+  pipeline under varying email volume loads across GPT-4, GPT-3.5-turbo, and Mistral-7B?
+
+RQ7 — Ablation of Pipeline Components:
+  Which individual components (RAG retrieval, multi-node routing, confidence calibration,
+  LLM backbone) contribute most to overall system performance via ablation studies?

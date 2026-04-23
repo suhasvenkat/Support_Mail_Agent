@@ -1,0 +1,12 @@
+ACCOUNT MANAGEMENT GUIDE
+
+Account support procedures:
+
+1. Password reset: Click forgot password. Reset link valid for 24 hours.
+2. Account locked: Unlock after 3 failed attempts via email verification.
+3. Email change: Verify new email address. Update takes 24 hours.
+4. Account closure: Download data first. Deletion permanent after 30 days.
+5. Two-factor authentication: Enable via security settings. Use authenticator app.
+6. User permissions: Admin can modify roles. Changes effective immediately.
+7. Account upgrade: Select new plan. Prorated charge applied immediately.
+8. Data export: Request via settings. Download link sent within 2 hours.

@@ -1,0 +1,45 @@
+METHODOLOGY
+===========
+
+PHASE 1 — Systematic Literature Review (4 weeks)
+  • LLM-based email automation and intent classification
+  • RAG architectures: FAISS, ChromaDB, RAGAS evaluation framework
+  • Agentic LLM workflows: LangGraph, LangChain, multi-agent orchestration
+  • Customer support NLP benchmarks and evaluation protocols
+
+PHASE 2 — Architecture Design & Formalization (3 weeks)
+  • Define LangGraph StateGraph with 4 nodes: Classifier, KB Retriever, Responder, Escalator
+  • Specify state schema: email_body, intent, confidence, kb_docs, response_draft, escalated
+  • Define transition logic and inter-node information flow
+  • Extend existing prototype: github.com/suhasvenkat/Support_Mail_Agent
+
+PHASE 3 — Dataset Construction & Knowledge Base Setup (3 weeks)
+  • ASAP Dataset: adapt support-relevant subset, annotate intent labels
+  • Enron Email Dataset: filter business/support threads, annotate escalation labels
+  • Synthetic data: 500–1,000 emails across 6 intents via GPT-4 + human review
+  • Knowledge Base: 50–100 FAQ documents, chunked at 256 tokens, 10% overlap
+  • Embeddings: text-embedding-ada-002 or sentence-transformers/all-mpnet-base-v2
+
+PHASE 4 — Pipeline Implementation & RAG Evaluation (5 weeks)
+  • Implement 24 RAG configurations: {FAISS, ChromaDB} × {128,256,512 tokens} × {k=1,3,5,7}
+  • Evaluate with RAGAS: Answer Faithfulness, Relevancy, Context Precision, Context Recall
+  • Select optimal config based on faithfulness × relevancy composite score
+
+PHASE 5 — Confidence-Aware Escalation Module (4 weeks)
+  • Implement 3 strategies: static τ=0.50, grid-searched static, learned model
+  • Train escalation model (logistic regression + MLP) on 70% annotated split
+  • Evaluate on 30% holdout: precision, recall, F1, escalation rate, workload reduction
+  • Compare ROC/AUC across strategies
+
+PHASE 6 — Comprehensive Evaluation & Ablation (4 weeks)
+  • Benchmark 4 systems: keyword, fine-tuned BERT, vanilla GPT-4, proposed
+  • Robustness testing: noisy inputs, ambiguous intents, multilingual (DE/ES)
+  • Human annotation: 3 annotators, 300 responses, 5 Likert-scale dimensions
+  • Compute Pearson/Spearman correlations: automated metrics vs. human ratings
+  • Load testing via Locust: 10/50/100/200/500 concurrent requests, 3 LLM backends
+  • Full ablation: 5 configurations (remove each component individually)
+
+PHASE 7 — Thesis Writing & Submission (5 weeks)
+  • Draft all sections following Elsevier article template
+  • Prepare publication-ready figures and tables (this script output)
+  • Submit for supervisor review and incorporate feedback

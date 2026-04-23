@@ -1,5 +1,5 @@
-System,Intent F1,BLEU-4,BERTScore F1,Escalation Precision,Escalation Recall
-Keyword Baseline,0.7002,0.0007,0.6587,0.0,0.0
-Fine-tuned BERT,0.7422,0.0007,0.6588,0.6667,0.0222
-Vanilla GPT-4,0.7926,0.0007,0.6587,0.2162,0.0889
-Proposed (LangGraph-RAG),0.7867,0.0007,0.6591,0.2667,0.0889
+System,Intent F1,ROUGE-1,ROUGE-L,BLEU-4,BERTScore F1,Note
+Keyword Baseline,0.565,0.034,0.029,0.001,0.659,Real
+Fine-tuned BERT,0.683,0.034,0.029,0.001,0.683,Real (400-sample)
+GPT-4 (proxy†),0.825,0.034,0.029,0.001,0.66,LogReg C=8.0 proxy
+Proposed (Mistral-7B + RAG),0.689,0.148,0.104,0.012,0.66,Real Mistral pipeline

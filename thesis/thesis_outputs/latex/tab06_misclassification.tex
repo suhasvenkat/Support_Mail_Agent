@@ -1,0 +1,15 @@
+\begin{table}
+\caption{Top-5 misclassification pairs by system. Proposed system reduces confusion substantially in semantically adjacent categories.}
+\label{tab:tab06_misclassification}
+\begin{tabular}{lccccc}
+\toprule
+True Intent & Predicted Intent & Keyword (count) & BERT (count) & GPT-4 (count) & Proposed (count) \\
+\midrule
+Billing & Refund & 41 & 18 & 12 & 5 \\
+Billing & General & 28 & 11 & 7 & 3 \\
+Refund & Billing & 35 & 15 & 10 & 4 \\
+Technical & General & 22 & 9 & 6 & 4 \\
+Account & General & 19 & 12 & 8 & 5 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,14 @@
+\begin{table}
+\caption{Formal specification of each LangGraph node including state variables, processing function, output, and transition logic.}
+\label{tab:tab02_node_specification}
+\begin{tabular}{lcccc}
+\toprule
+Node & Input State Vars & Processing & Output State Vars & Transition \\
+\midrule
+Classifier & email\_body, subject & LLM zero-shot + keyword fallback & intent, confidence & Always → Retriever \\
+KB Retriever & email\_body, intent & FAISS/ChromaDB semantic search & kb\_docs, retrieval\_score & Always → Responder \\
+Responder & email\_body, intent, kb\_docs & LLM generation with RAG context & response\_draft & Always → Escalator \\
+Escalator & response\_draft, confidence & Learned threshold model & escalated (bool), routing & Conditional: Auto-Reply or Escalate \\
+\bottomrule
+\end{tabular}
+\end{table}

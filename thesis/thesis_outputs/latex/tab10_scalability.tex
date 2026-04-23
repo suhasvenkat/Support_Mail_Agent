@@ -1,0 +1,13 @@
+\begin{table}
+\caption{System performance at three load tiers (GPT-3.5-turbo backend, FastAPI deployment).}
+\label{tab:tab10_scalability}
+\begin{tabular}{lcccc}
+\toprule
+Load Tier & Mean Latency (ms) & P95 Latency (ms) & Error Rate (\%) & Throughput (actual) \\
+\midrule
+Low (10/min) & 380 & 620 & 0.000000 & 10 \\
+Medium (100/min) & 820 & 1480 & 0.800000 & 98 \\
+High (500/min) & 2640 & 4900 & 5.200000 & 441 \\
+\bottomrule
+\end{tabular}
+\end{table}

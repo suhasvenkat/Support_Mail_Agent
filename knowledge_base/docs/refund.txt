@@ -1,0 +1,12 @@
+REFUND POLICY GUIDE
+
+Refund eligibility and process:
+
+1. Standard refunds: Processed within 5-7 business days to original payment method.
+2. Duplicate charge refund: Immediate processing upon verification of duplicate.
+3. Service downtime credit: SLA credit applied within 2 billing cycles.
+4. Cancelled subscription: Pro-rated refund for unused period if cancelled within 30 days.
+5. Wrong item delivered: Full refund or replacement within 24 hours of report.
+6. Damaged goods: Photo evidence required. Full refund processed within 48 hours.
+7. Refund status check: Provide transaction ID and email for status update.
+8. Non-refundable items: Digital downloads and custom orders are non-refundable.

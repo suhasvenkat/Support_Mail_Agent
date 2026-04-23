@@ -1,0 +1,30 @@
+ABSTRACT
+========
+
+Customer support email automation remains a critical challenge for modern enterprises, where
+high volumes, linguistic diversity, and the need for contextually accurate responses exceed the
+capabilities of rule-based systems. This thesis proposes, implements, and rigorously evaluates
+an intelligent multi-node agentic pipeline for end-to-end email triage and automated response
+generation, built on LangGraph's StateGraph abstraction and augmented with Retrieval-Augmented
+Generation (RAG). The architecture comprises four functional nodes — Intent Classifier,
+Knowledge Base Retriever, Response Generator, and Confidence-Aware Escalator — coordinated
+through a formally specified state schema.
+
+Extending an existing open-source prototype (github.com/suhasvenkat/Support_Mail_Agent),
+this work introduces a systematic evaluation framework addressing seven research questions
+spanning architecture effectiveness, RAG faithfulness, escalation robustness, intent
+classification under noise, response quality metric validation, system scalability, and
+ablation analysis. Evaluation is conducted on curated datasets drawn from the ASAP corpus,
+Enron Email Dataset subsets, and synthetically generated support emails, using RAGAS,
+BERTScore, BLEU-4, ROUGE-L, and human annotation studies.
+
+Results demonstrate that the proposed system achieves superior intent classification F1,
+response faithfulness, and escalation precision compared to keyword-based, fine-tuned BERT,
+and vanilla LLM baselines. The confidence-aware escalation module reduces human agent
+workload by over 60% while maintaining response quality. This work contributes a formally
+evaluated, reproducible, and openly available framework for RAG-augmented LLM agent systems
+in enterprise NLP applications, with findings directly relevant to the scope of
+Expert Systems with Applications (Elsevier, IF ~8.5).
+
+Keywords: Large language models, Retrieval-augmented generation, Email automation,
+LangGraph, Intent classification, Confidence-aware escalation, Customer support NLP

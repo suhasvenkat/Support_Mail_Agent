@@ -1,0 +1,14 @@
+\begin{table}
+\caption{Intent classification F1 under three adversarial conditions. Drop = mean F1 decrease from clean baseline.}
+\label{tab:tab05_robustness}
+\begin{tabular}{lccccc}
+\toprule
+System & Clean F1 & Noisy (5\% typo) F1 & Ambiguous F1 & Multilingual F1 & Avg Drop \\
+\midrule
+Keyword & 0.610000 & 0.440000 & 0.390000 & 0.220000 & 0.190000 \\
+Fine-tuned BERT & 0.790000 & 0.710000 & 0.620000 & 0.510000 & 0.110000 \\
+GPT-4 & 0.830000 & 0.780000 & 0.710000 & 0.690000 & 0.070000 \\
+Proposed & 0.910000 & 0.870000 & 0.800000 & 0.770000 & 0.050000 \\
+\bottomrule
+\end{tabular}
+\end{table}

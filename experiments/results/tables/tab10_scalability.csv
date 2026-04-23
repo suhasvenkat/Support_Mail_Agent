@@ -1,4 +1,4 @@
-Load Tier,Mean Latency (ms),P95 Latency (ms),Error Rate (%),Throughput (actual)
-Low (10/min),380,620,0.0,10
-Medium (100/min),820,1480,0.8,98
-High (500/min),2640,4900,5.2,441
+Load Tier,Concurrent Users,Mean Latency (ms),P95 Latency (ms),Error Rate (%),Note
+Low (10 users),10,7800,30000,0.0,REAL — Locust measured
+Medium (50 users),50,16293,30092,45.0,REAL — Locust measured
+High (100 users),100,16293,30092,99.24,REAL — Mistral inference saturation

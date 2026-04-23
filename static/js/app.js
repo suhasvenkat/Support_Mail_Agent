@@ -80,7 +80,11 @@ class EmailDashboard {
 
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(error.detail || 'Failed to process email');
+                const detail = error.detail;
+                const message = Array.isArray(detail)
+                    ? detail.map(e => e.msg).join(', ')
+                    : (detail || 'Failed to process email');
+                throw new Error(message);
             }
 
             const result = await response.json();

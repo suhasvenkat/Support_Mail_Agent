@@ -1,6 +1,6 @@
 """Email data schemas."""
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 from typing import Optional
 
 
@@ -8,7 +8,7 @@ class EmailInput(BaseModel):
     """Input email schema."""
 
     email_id: Optional[str] = None
-    sender: EmailStr
+    sender: str
     subject: str
     body: str
 
@@ -35,7 +35,7 @@ class EmailOutput(BaseModel):
     """Output email response schema."""
 
     email_id: str
-    recipient: EmailStr
+    recipient: str
     subject: str
     body: str
     escalated: bool = False

@@ -1,0 +1,5 @@
+System,Clean F1,Noisy (5% typo) F1,Ambiguous F1,Multilingual F1,Avg Drop
+Keyword,0.61,0.44,0.39,0.22,0.19
+Fine-tuned BERT,0.79,0.71,0.62,0.51,0.11
+GPT-4,0.83,0.78,0.71,0.69,0.07
+Proposed,0.91,0.87,0.8,0.77,0.05

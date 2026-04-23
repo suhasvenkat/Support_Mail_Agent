@@ -1,0 +1,15 @@
+\begin{table}
+\caption{Complete ablation results. Each row removes one component; last row is full proposed system.}
+\label{tab:tab11_ablation_matrix}
+\begin{tabular}{lccccccc}
+\toprule
+Configuration & Intent F1 & BLEU-4 & ROUGE-L & BERTScore F1 & RAGAS Faithfulness & Escalation F1 & Overall Composite F1 \\
+\midrule
+−Confidence Calibration & 0.850000 & 0.400000 & 0.540000 & 0.890000 & 0.840000 & 0.710000 & 0.840000 \\
+−RAG Retrieval & 0.880000 & 0.320000 & 0.460000 & 0.780000 & 0.610000 & 0.840000 & 0.810000 \\
+−Multi-Node Routing & 0.820000 & 0.380000 & 0.510000 & 0.850000 & 0.800000 & 0.750000 & 0.820000 \\
+−LangGraph Orchestration & 0.790000 & 0.350000 & 0.480000 & 0.830000 & 0.770000 & 0.680000 & 0.780000 \\
+Full Proposed System & 0.910000 & 0.430000 & 0.580000 & 0.920000 & 0.870000 & 0.870000 & 0.920000 \\
+\bottomrule
+\end{tabular}
+\end{table}

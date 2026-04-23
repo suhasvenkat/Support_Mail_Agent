@@ -1,0 +1,12 @@
+GENERAL SUPPORT GUIDE
+
+General customer support procedures:
+
+1. Response times: Email 24 hours, chat 5 minutes, phone immediate during business hours.
+2. Escalation process: Tier 1 → Tier 2 → Manager within 24 hours if unresolved.
+3. Service status: Check status.ourservice.com for real-time system status.
+4. Business hours: Monday-Friday 9AM-6PM EST. Emergency support 24/7.
+5. Feedback submission: Use feedback form in app. Response within 3 business days.
+6. Feature requests: Submit via product portal. Reviewed in monthly sprint.
+7. Compliance queries: GDPR data requests processed within 30 days.
+8. Partnership inquiries: Forward to partnerships@ourservice.com.
